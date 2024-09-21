@@ -1,5 +1,6 @@
 import * as dgram from "dgram";
 import { TDNSHeader , DNSHeader, OpCode, ResponseCode } from "./dns/header";
+import { Question } from "./dns/question";
 
 const defaultHeader : TDNSHeader = {
     id: 1234,
