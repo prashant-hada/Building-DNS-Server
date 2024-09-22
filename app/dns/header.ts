@@ -10,18 +10,18 @@ export enum ResponseCode{
     NAME_ERROR = 3
 }
 export interface TDNSHeader{
-    id: number,
-    qr: number,
-    opCode:OpCode,
-    aa: number,
-    tc: number,
-    rd: number,
-    ra :number,
-    z: number,
-    rCode : ResponseCode
-    qdCount : number,
-    anCount : number,
-    nsCount: number,
+    id: number ;
+    qr: number ;
+    opCode:OpCode ;
+    aa: number ;
+    tc: number ;
+    rd: number ;
+    ra :number ;
+    z: number ;
+    rCode : ResponseCode ;
+    qdCount : number ;
+    anCount : number ;
+    nsCount: number ;
     arCount : number
 }
 

@@ -1,6 +1,7 @@
 import * as dgram from "dgram";
 import { TDNSHeader , DNSHeader, OpCode, ResponseCode } from "./dns/header";
 import { Question , _DNSQuestion, DNSClassCodes, DNSQuestionType} from "./dns/question";
+import { _DNSAnswer, Answer } from "./dns/answer";
 
 const defaultHeader : TDNSHeader = {
     id: 1234,
@@ -24,6 +25,14 @@ const defaultQuestion : _DNSQuestion ={
     type : DNSQuestionType.A
 }
 
+const defaultAnswer: _DNSAnswer ={
+    name : "codecrafters.io",
+    className : DNSClassCodes.IN,
+    type : DNSQuestionType.A,
+    ttl:60,
+    data: "\x02.\x02.\x04.\x05"
+}
+
 
 // Uncomment this block to pass the first stage
 //
@@ -34,8 +43,9 @@ udpSocket.on("message", (data: Buffer, remoteAddr: dgram.RemoteInfo) => {
     try {
         console.log(`Received data from ${remoteAddr.address}:${remoteAddr.port}`);
         const header = DNSHeader.write(defaultHeader);
-        const question = Question.write([defaultQuestion])
-        const response = Buffer.concat([header, question]);
+        const question = Question.write([defaultQuestion]);
+        const answer = Answer.write([defaultAnswer]);
+        const response = Buffer.concat([header, question , answer]);
         udpSocket.send(response, remoteAddr.port, remoteAddr.address);
     } catch (e) {
         console.log(`Error sending data: ${e}`);
